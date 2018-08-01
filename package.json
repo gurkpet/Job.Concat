@@ -1,5 +1,5 @@
 {
-  "name": "DinosaurQuails",
+  "name": "Job.Concat",
   "version": "1.0.0",
   "description": "An app to help you organize and optimize your job search!",
   "main": "webpack.config.js",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DinosaurQuails/DinosaurQuails.git"
+    "url": "git+https://github.com/BlastOffInc/Job.Concat"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DinosaurQuails/DinosaurQuails/issues"
+    "url": "https://github.com/BlastOffInc/Job.Concat/issues"
   },
-  "homepage": "https://github.com/DinosaurQuails/DinosaurQuails#readme",
+  "homepage": "https://github.com/BlastOffInc/Job.Concat#readme",
   "dependencies": {
     "@material-ui/core": "1.4.0",
     "axios": "0.18.0",
