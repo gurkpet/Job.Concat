@@ -31,9 +31,9 @@ function getSorting(order, orderBy) {
 
 const columnData = [
   { id: 'company', numeric: false, disablePadding: true, label: 'Company' },
-  { id: 'jobTitle', numeric: true, disablePadding: false, label: 'Job Title' },
-  { id: 'status', numeric: true, disablePadding: false, label: 'Status' },
-  { id: 'dateApplied', numeric: true, disablePadding: false, label: 'Date Applied' },
+  { id: 'jobTitle', numeric: false, disablePadding: true, label: 'Job Title' },
+  { id: 'status', numeric: false, disablePadding: true, label: 'Status' },
+  { id: 'dateApplied', numeric: false, disablePadding: true, label: 'Date Applied' },
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -130,7 +130,7 @@ let EnhancedTableToolbar = props => {
           </Typography>
         ) : (
           <Typography variant="title" id="tableTitle">
-            Nutrition
+            Job Applications
           </Typography>
         )}
       </div>
@@ -184,7 +184,7 @@ class EnhancedTable extends React.Component {
       selected: [],
       data: props.jobData,
       page: 0,
-      rowsPerPage: 5,
+      rowsPerPage: 10,
     };
   }
 
@@ -236,6 +236,7 @@ class EnhancedTable extends React.Component {
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
   render() {
+    console.log('line 239', this.props);
     const { classes } = this.props;
     const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
@@ -254,7 +255,7 @@ class EnhancedTable extends React.Component {
               rowCount={data.length}
             />
             <TableBody>
-              {data
+              {this.props.jobData
                 .sort(getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {

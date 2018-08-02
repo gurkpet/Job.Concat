@@ -7,6 +7,7 @@ import LoginSignUp from './LoginSignUp.jsx';
 import CreateJob from './CreateJob.jsx'
 import JobDetailWrapped from './JobDetail.jsx';
 import JobTable from './JobTable.jsx';
+import JobTable2 from './JobTable2.jsx';
 import axios from 'axios';
 
 class App extends Component {
@@ -263,7 +264,7 @@ class App extends Component {
         {this.showDetail()}
       </div>
       <div>
-          <JobTable jobData={this.state.jobs} />
+          <JobTable2 jobData={this.state.jobs} />
         </div>
     </div>
     );
