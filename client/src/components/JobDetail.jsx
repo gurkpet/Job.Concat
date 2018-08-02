@@ -5,8 +5,12 @@ import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
 import moment from 'moment';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -34,25 +38,25 @@ const styles = theme => ({
   },
   palette: {
     color: '#7dce94',
-    backgroundColor: '#CE7D86'
+    backgroundColor: '#CE7D86',
   },
 });
 
 class JobDetail extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       view: 'detail',
       appliedDate: null,
       state: null,
       payRange: null,
-      open: true
+      open: true,
     };
-    this.handleChange = this.handleChange.bind(this)
-}
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-  update(){
-    let updatedData ={
+  update() {
+    let updatedData = {
       id: this.props.job._id,
       edits: {
         appliedDate: this.state.appliedDate || this.props.job.appliedDate,
@@ -62,27 +66,26 @@ class JobDetail extends React.Component {
           name: this.props.job.company.name,
           jobTitle: this.props.job.company.jobTitle,
           webSite: this.props.job.company.webSite,
-          logoUrl: this.props.job.company.logoUrl
-        }
-      }
-    }
-    this.props.saveChanges('/job', updatedData, (res) => {
-     console.log('response: ', res)
-     this.props.getJobData();
-     this.props.detailClose();
-    })
+          logoUrl: this.props.job.company.logoUrl,
+        },
+      },
+    };
+    this.props.saveChanges('/job', updatedData, res => {
+      console.log('response: ', res);
+      this.props.getJobData();
+      this.props.detailClose();
+    });
   }
 
-
-  handleChange(e){
+  handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
-    })
+      [e.target.name]: e.target.value,
+    });
   }
 
   render() {
     const { classes } = this.props;
-    const { company, contact, appliedDate, postDate, interviewDate, state } = this.props.job
+    const { company, contact, appliedDate, postDate, interviewDate, state } = this.props.job;
     if (this.state.view === 'detail') {
       return (
         <div>
@@ -100,22 +103,31 @@ class JobDetail extends React.Component {
                 {company.jobTitle}
               </Typography>
               <Typography variant="caption" id="simple-modal-description">
-                <p> Entry Date: {moment(appliedDate.substring(0,10).replace(/-/g,'')).fromNow()}  </p>
-                <p> Status: {state}  </p>
+                <p> Entry Date: {moment(appliedDate.substring(0, 10).replace(/-/g, '')).fromNow()} </p>
+                <p> Status: {state} </p>
                 <p> Salary: {company.payRange} </p>
               </Typography>
-            <Button className={classes.pallete} onClick={() => this.props.detailClose()} align="inherit" variant="subheading">
+              <Button
+                className={classes.pallete}
+                onClick={() => this.props.detailClose()}
+                align="inherit"
+                variant="subheading"
+              >
                 CLOSE
-            </Button>
-              <Button className={classes.pallete} onClick={() => this.setState({ view: 'edit' })} align="inherit" variant="subheading">
+              </Button>
+              <Button
+                className={classes.pallete}
+                onClick={() => this.setState({ view: 'edit' })}
+                align="inherit"
+                variant="subheading"
+              >
                 EDIT
-            </Button>
+              </Button>
             </div>
           </Modal>
         </div>
       );
-    }
-    else if (this.state.view === 'edit') {
+    } else if (this.state.view === 'edit') {
       return (
         <div>
           <Modal
@@ -126,11 +138,11 @@ class JobDetail extends React.Component {
           >
             <div style={getModalStyle()} className={classes.paper}>
               <Typography variant="title" id="modal-title">
-              {company.name}
-          </Typography>
+                {company.name}
+              </Typography>
               <Typography variant="subheading" id="simple-modal-description">
-              {company.jobTitle}
-          </Typography>
+                {company.jobTitle}
+              </Typography>
               <form className={classes.container} noValidate autoComplete="off">
                 <TextField
                   onChange={this.handleChange}
@@ -140,22 +152,27 @@ class JobDetail extends React.Component {
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  placeholder={moment(appliedDate.substring(0,10).replace(/-/g,'')).fromNow()}
+                  placeholder={moment(appliedDate.substring(0, 10).replace(/-/g, '')).fromNow()}
                   fullWidth
                   margin="normal"
                 />
-                <TextField
-                  onChange={this.handleChange}
-                  id="full-width"
-                  name="state"
-                  label="Status"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  placeholder={state}
-                  fullWidth
-                  margin="normal"
-                />
+                <FormControl className={classes.formControl}>
+                  <InputLabel htmlFor="state-helper">Status</InputLabel>
+                  <Select
+                    value={this.state.state}
+                    onChange={this.handleChange}
+                    input={<Input name="state" id="state-helper" />}
+                  >
+                    <MenuItem value="">
+                      <em>Status</em>
+                    </MenuItem>
+                    <MenuItem value="interested">Interested</MenuItem>
+                    <MenuItem value="pending">Pending/Applied</MenuItem>
+                    <MenuItem value="interview">Interview</MenuItem>
+                    <MenuItem value="offered">Offered</MenuItem>
+                    <MenuItem value="rejected">Rejected</MenuItem>
+                  </Select>
+                </FormControl>
                 <TextField
                   onChange={this.handleChange}
                   id="full-width"
@@ -169,19 +186,29 @@ class JobDetail extends React.Component {
                   margin="normal"
                 />
               </form>
-              <Button className={classes.pallete} onClick={() => this.setState({ view: 'detail' })} align="inherit" variant="subheading">
+              <Button
+                className={classes.pallete}
+                onClick={() => this.setState({ view: 'detail' })}
+                align="inherit"
+                variant="subheading"
+              >
                 BACK
-             </Button>
-             <Button className={classes.pallete} onClick={this.update.bind(this)} align="inherit" variant="subheading">
+              </Button>
+              <Button className={classes.pallete} onClick={this.update.bind(this)} align="inherit" variant="subheading">
                 UPDATE
-             </Button>
-             <Button className={classes.pallete} onClick={() => this.props.detailClose()} align="inherit" variant="subheading">
+              </Button>
+              <Button
+                className={classes.pallete}
+                onClick={() => this.props.detailClose()}
+                align="inherit"
+                variant="subheading"
+              >
                 CLOSE
-            </Button>
+              </Button>
             </div>
           </Modal>
         </div>
-      )
+      );
     }
   }
 }

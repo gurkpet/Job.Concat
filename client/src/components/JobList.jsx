@@ -11,9 +11,9 @@ import { GridList } from '@material-ui/core';
  * @param { String } props.filter string representing the current status selected in the SelectBar component
  */
 
- // Material-ui often times allows rendering using a withStyles method. However, if you want specific styles to overwrite material
- // and don't wish to worry about the css render stack passing styles inline is preferred.
- // Below we use an object that follows JSS formatting ie: flex-flow becomes flexFlow background-color becomes backgroundColor
+// Material-ui often times allows rendering using a withStyles method. However, if you want specific styles to overwrite material
+// and don't wish to worry about the css render stack passing styles inline is preferred.
+// Below we use an object that follows JSS formatting ie: flex-flow becomes flexFlow background-color becomes backgroundColor
 const styles = {
   root: {
     display: 'flex',
@@ -27,31 +27,27 @@ const styles = {
     height: 'auto',
     padding: 10,
   },
-}
+};
 
 // The below function is used to map the data based on the state field on each job component
 // the state field is a string that matches the SelectBar component's values ie: rejected, offered, pending
 // when status is 'all' every job should be visible.
-const filteredJobs = (jobData, status, detailOpen)=> {
-
-  if(status === 'all') {
-    return jobData.map((job, i) => (
-            <JobMin key={i} detailOpen={detailOpen} job={job} />
-            ))
+const filteredJobs = (jobData, status, detailOpen) => {
+  if (status === 'all') {
+    return jobData.map((job, i) => <JobMin key={i} detailOpen={detailOpen} job={job} />);
   } else {
-    return jobData.filter(job => job.state === status
-        ).map((job, i) => (
-          <JobMin key={i} detailOpen={detailOpen} job={job} />
-          ))
+    return jobData
+      .filter(job => job.state === status)
+      .map((job, i) => <JobMin key={i} detailOpen={detailOpen} job={job} />);
   }
-}
+};
 
-const JobList = (props) => (
+const JobList = props => (
   <div style={styles.root}>
-      <GridList cols={3} cellHeight={180} style={styles.gridList} >
+    <GridList cols={3} cellHeight={180} style={styles.gridList}>
       {filteredJobs(props.jobData, props.filter, props.detailOpen)}
-      </GridList>
+    </GridList>
   </div>
-)
+);
 
 export default JobList;
