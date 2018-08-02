@@ -30,10 +30,10 @@ function getSorting(order, orderBy) {
 }
 
 const columnData = [
-  { id: 'company', numeric: false, disablePadding: true, label: 'Company' },
-  { id: 'jobTitle', numeric: false, disablePadding: true, label: 'Job Title' },
-  { id: 'status', numeric: false, disablePadding: true, label: 'Status' },
-  { id: 'dateApplied', numeric: false, disablePadding: true, label: 'Date Applied' },
+  { id: 'company', numeric: false, disablePadding: false, label: 'Company' },
+  { id: 'jobTitle', numeric: false, disablePadding: false, label: 'Job Title' },
+  { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
+  { id: 'dateApplied', numeric: false, disablePadding: false, label: 'Date Applied' },
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -47,13 +47,13 @@ class EnhancedTableHead extends React.Component {
     return (
       <TableHead>
         <TableRow>
-          <TableCell padding="checkbox">
+          {/* <TableCell padding="checkbox">
             <Checkbox
               indeterminate={numSelected > 0 && numSelected < rowCount}
               checked={numSelected === rowCount}
               onChange={onSelectAllClick}
             />
-          </TableCell>
+          </TableCell> */}
           {columnData.map(column => {
             return (
               <TableCell
@@ -199,13 +199,13 @@ class EnhancedTable extends React.Component {
     this.setState({ order, orderBy });
   };
 
-  handleSelectAllClick = (event, checked) => {
-    if (checked) {
-      this.setState(state => ({ selected: state.data.map(n => n.id) }));
-      return;
-    }
-    this.setState({ selected: [] });
-  };
+  // handleSelectAllClick = (event, checked) => {
+  //   if (checked) {
+  //     this.setState(state => ({ selected: state.data.map(n => n.id) }));
+  //     return;
+  //   }
+  //   this.setState({ selected: [] });
+  // };
 
   handleClick = (event, id) => {
     const { selected } = this.state;
@@ -270,15 +270,15 @@ class EnhancedTable extends React.Component {
                       key={n.id}
                       selected={isSelected}
                     >
-                      <TableCell padding="checkbox">
+                      {/* <TableCell padding="checkbox">
                         <Checkbox checked={isSelected} />
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell component="th" scope="row">
                         {n.company.name}
                       </TableCell>
                       <TableCell>{n.company.jobTitle}</TableCell>
                       <TableCell>{n.state}</TableCell>
-                      <TableCell>{n.appliedDate}</TableCell>
+                      <TableCell>{n.appliedDate.slice(0, 10)}</TableCell>
                     </TableRow>
                   );
                 })}
