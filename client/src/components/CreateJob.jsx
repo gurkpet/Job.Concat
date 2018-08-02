@@ -209,7 +209,7 @@ class CreateJob extends React.Component {
                 />
               </div>
               <div>
-                <label>Applied Date:</label>
+                <label>Applied Date: </label>
                 <input
                   type="date"
                   name="appliedDate"
