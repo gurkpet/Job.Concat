@@ -8,12 +8,11 @@ const styles = {
   },
 };
 
-
 /**
  * @description This sends info of which button was clicked back to App component so its filter state can be updated for the JobList to show the jobs of that status.
-**/
+ **/
 class SelectBar extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       value: 0,
@@ -21,7 +20,7 @@ class SelectBar extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange (event, value) {
+  handleChange(event, value) {
     this.setState({ value });
   }
 
@@ -30,11 +29,19 @@ class SelectBar extends Component {
 
     return (
       <Paper style={styles.root}>
-        <Tabs value={this.state.value} onChange={this.handleChange} indicatorColor="primary" textColor="primary" centered >
-          <Tab label="All" onClick={() => this.props.changeJobFilter('all')}/>
-          <Tab label="Pending" onClick={() => this.props.changeJobFilter('pending')}/>
-          <Tab label="Offered" onClick={() => this.props.changeJobFilter('offered')}/>
-          <Tab label="Rejected" onClick={() => this.props.changeJobFilter('rejected')}/>
+        <Tabs
+          value={this.state.value}
+          onChange={this.handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          centered
+        >
+          <Tab label="All" onClick={() => this.props.changeJobFilter('all')} />
+          <Tab label="Interested" onClick={() => this.props.changeJobFilter('interested')} />
+          <Tab label="Applied" onClick={() => this.props.changeJobFilter('pending')} />
+          <Tab label="Interview" onClick={() => this.props.changeJobFilter('interview')} />
+          <Tab label="Offered" onClick={() => this.props.changeJobFilter('offered')} />
+          <Tab label="Rejected" onClick={() => this.props.changeJobFilter('rejected')} />
         </Tabs>
       </Paper>
     );
