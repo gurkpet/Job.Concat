@@ -63,6 +63,7 @@ class CreateJob extends React.Component {
     var target = event.target;
     var value = target.value;
     var name = target.name;
+    console.log(value);
     this.setState({
       [name]: value,
     });
@@ -143,6 +144,7 @@ class CreateJob extends React.Component {
                   value={this.state.name}
                   onChange={this.handleChange.bind(this)}
                   onKeyUp={e => this.handleEnter(e, this.createNewJob.bind(this))}
+                  required
                 />
               </div>
               <div>
