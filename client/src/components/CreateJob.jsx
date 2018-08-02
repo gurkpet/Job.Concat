@@ -189,7 +189,7 @@ class CreateJob extends React.Component {
                 />
               </div>
               <div>
-                <label>Recruiter:</label>
+                <label>Recruiter: </label>
                 <input
                   type="text"
                   name="recruiter"
