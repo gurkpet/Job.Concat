@@ -103,7 +103,8 @@ class LoginSignUp extends React.Component {
       };
 
       this.props.submitData('/signup', requestData, (response, err) => {
-        if (response.data.messageCode === 101 || response.data.messageCode === 102) {
+        // todo this is all wrong, should be a 400 type error with a message explaining it
+        if (response.data.messageCode === 101 || response.data.messageCode === 102 || response.status === 500) {
           this.setState({
             alreadyExistingUser: true,
           });

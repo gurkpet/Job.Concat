@@ -33,6 +33,7 @@ class CreateJob extends React.Component {
       state: '',
       open: true,
       jobImportURL: '',
+      missingFields: false,
     };
 
     this.handleClose = this.handleClose.bind(this);
@@ -73,7 +74,26 @@ class CreateJob extends React.Component {
   // Ajax call from the main component.
   // Eventually, we should have form validation for this part.
   createNewJob() {
-    this.props.onSubmit(this.state);
+    this.state.missingFields = false;
+    if (
+      (this.state.name === '' ||
+        this.state.title === '' ||
+        this.state.website === '' ||
+        this.state.email === '' ||
+        this.state.phone === '' ||
+        this.state.recruiter === '' ||
+        this.state.postDate === '' ||
+        this.state.appliedDate === '' ||
+        this.state.interviewedDate === '' ||
+        this.state.coverLetterUrl === '' ||
+        this.state.payRange === '' ||
+        this.state.state === '') &&
+      this.state.jobImportURL === ''
+    ) {
+      this.setState({ missingFields: true });
+    } else {
+      this.props.onSubmit(this.state);
+    }
   }
 
   getJobInfoFromURL() {
@@ -109,6 +129,12 @@ class CreateJob extends React.Component {
           <DialogTitle id="alert-dialog-title">{'Create a new job'}</DialogTitle>
 
           <DialogContent>
+            <div style={this.state.missingFields ? { color: 'red' } : { display: 'none', fontSize: '1.5em' }}>
+              <a>{'You must fill in either the Job Listing'}</a>
+              <br />
+              <a> {'URL or all the fields in the form'}</a>
+              <br />
+            </div>
             <DialogContentText id="alert-dialog-description">
               <div>
                 <label>Job Listing URL</label>

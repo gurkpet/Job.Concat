@@ -55,7 +55,9 @@ class App extends Component {
       .then(response => {
         callback(response);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   updateData(endpoint, params, callback) {
