@@ -235,32 +235,51 @@ class App extends Component {
    */
 
   render() {
-    return (
-      <div>
-        <Fragment>
-          <Nav
-            displayLoginSignup={this.displayLoginSignup.bind(this)}
-            isLoggedIn={this.state.isLoggedIn}
-            displayCreateJob={this.displayCreateJob.bind(this)}
-            updateStatus={this.updateStatus.bind(this)}
-            updateUserInfo={this.updateUserInfo.bind(this)}
-          />
-          <div style={this.state.isLoggedIn ? {} : { display: 'none' }}>
-            <SelectBar changeJobFilter={this.changeJobFilter.bind(this)} />
-            <JobList detailOpen={this.detailOpen.bind(this)} jobData={this.state.jobs} filter={this.state.filter} />
-          </div>
-          <div style={this.state.isLoggedIn ? { display: 'none' } : {}}>
-            <LandingPage />
-          </div>
-        </Fragment>
-        <div className="signInRegister">{this.showLoginOrSignUp()}</div>
-        <div className="createJob">{this.showCreate()}</div>
-        <div className="jobDetail">{this.showDetail()}</div>
+    if (this.state.isLoggedIn) {
+      return (
         <div>
-          <JobTable2 jobData={this.state.jobs} />
+          <Fragment>
+            <Nav
+              displayLoginSignup={this.displayLoginSignup.bind(this)}
+              isLoggedIn={this.state.isLoggedIn}
+              displayCreateJob={this.displayCreateJob.bind(this)}
+              updateStatus={this.updateStatus.bind(this)}
+              updateUserInfo={this.updateUserInfo.bind(this)}
+            />
+            <div>
+              <SelectBar changeJobFilter={this.changeJobFilter.bind(this)} />
+              <JobList detailOpen={this.detailOpen.bind(this)} jobData={this.state.jobs} filter={this.state.filter} />
+            </div>
+          </Fragment>
+          <div className="signInRegister">{this.showLoginOrSignUp()}</div>
+          <div className="createJob">{this.showCreate()}</div>
+          <div className="jobDetail">{this.showDetail()}</div>
+          <div>
+            <JobTable2 jobData={this.state.jobs} />
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div>
+          <Fragment>
+            <Nav
+              displayLoginSignup={this.displayLoginSignup.bind(this)}
+              isLoggedIn={this.state.isLoggedIn}
+              displayCreateJob={this.displayCreateJob.bind(this)}
+              updateStatus={this.updateStatus.bind(this)}
+              updateUserInfo={this.updateUserInfo.bind(this)}
+            />
+            <div>
+              <LandingPage />
+            </div>
+          </Fragment>
+          <div className="signInRegister">{this.showLoginOrSignUp()}</div>
+          <div className="createJob">{this.showCreate()}</div>
+          <div className="jobDetail">{this.showDetail()}</div>
+        </div>
+      );
+    }
   }
 }
 
