@@ -104,7 +104,7 @@ class LoginSignUp extends React.Component {
 
       this.props.submitData('/signup', requestData, (response, err) => {
         // todo this is all wrong, should be a 400 type error with a message explaining it
-        if (response.data.messageCode === 101 || response.data.messageCode === 102 || response.status === 500) {
+        if (response.data.messageCode === 101 || response.data.messageCode === 102) {
           this.setState({
             alreadyExistingUser: true,
           });
@@ -153,7 +153,7 @@ class LoginSignUp extends React.Component {
                 <React.Fragment>
                   Email:
                   <input
-                    onKeyPress={e => this.handleEnter(e, this.logIntoAccount.bind(this))}
+                    onKeyUp={e => this.handleEnter(e, this.logIntoAccount.bind(this))}
                     type="text"
                     className="email"
                     name="email"
@@ -164,7 +164,7 @@ class LoginSignUp extends React.Component {
                 <React.Fragment>
                   Password:
                   <input
-                    onKeyPress={e => this.handleEnter(e, this.logIntoAccount.bind(this))}
+                    onKeyUp={e => this.handleEnter(e, this.logIntoAccount.bind(this))}
                     type="password"
                     className="password"
                     name="password"
@@ -208,7 +208,7 @@ class LoginSignUp extends React.Component {
                 <React.Fragment>
                   <input
                     type="text"
-                    onKeyPress={e => this.handleEnter(e, this.registerForAccount.bind(this))}
+                    onKeyUp={e => this.handleEnter(e, this.registerForAccount.bind(this))}
                     className="firstName"
                     name="firstName"
                     placeholder="First Name"
@@ -220,7 +220,7 @@ class LoginSignUp extends React.Component {
                 <React.Fragment>
                   <input
                     type="text"
-                    onKeyPress={e => this.handleEnter(e, this.registerForAccount.bind(this))}
+                    onKeyUp={e => this.handleEnter(e, this.registerForAccount.bind(this))}
                     className="lastName"
                     name="lastName"
                     placeholder="Lastname"
@@ -232,7 +232,7 @@ class LoginSignUp extends React.Component {
                 <React.Fragment>
                   <input
                     type="text"
-                    onKeyPress={e => this.handleEnter(e, this.registerForAccount.bind(this))}
+                    onKeyUp={e => this.handleEnter(e, this.registerForAccount.bind(this))}
                     className="userName"
                     name="userName"
                     placeholder="Username"
@@ -244,7 +244,7 @@ class LoginSignUp extends React.Component {
                 <React.Fragment>
                   <input
                     type="text"
-                    onKeyPress={e => this.handleEnter(e, this.registerForAccount.bind(this))}
+                    onKeyUp={e => this.handleEnter(e, this.registerForAccount.bind(this))}
                     className="email"
                     name="email"
                     placeholder="Email"
@@ -255,7 +255,7 @@ class LoginSignUp extends React.Component {
 
                 <React.Fragment>
                   <input
-                    onKeyPress={e => this.handleEnter(e, this.registerForAccount.bind(this))}
+                    onKeyUp={e => this.handleEnter(e, this.registerForAccount.bind(this))}
                     type="password"
                     className="password"
                     name="password"
