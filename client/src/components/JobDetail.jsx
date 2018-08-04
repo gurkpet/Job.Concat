@@ -91,7 +91,7 @@ class JobDetail extends React.Component {
     }
   }
 
-  handleChange(e, callback) {
+  handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value,
     });

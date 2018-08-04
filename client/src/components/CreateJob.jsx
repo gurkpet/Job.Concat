@@ -10,15 +10,15 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import axios from 'axios';
-import checkBoxListCreator from './CheckBoxListCreator.jsx';
-import checkBoxes from './checkBoxes.js';
+import createJobInputCreator from './CreateJobInputCreator.jsx';
+import createJobData from './createJobData.js';
 
 // This is the component for creating a new job. Since we need to host a form in the component, follow
 // the React Design Patterns rules, we are using a stateful component with local states to dynamically
 // take care of the events.
 
-const CheckboxesGenerator = checkBoxListCreator(Checkbox, checkBoxes);
-// const InputFieldGenerator = CheckBoxListCreator();
+const CreateJobInputFields = createJobInputCreator(createJobData);
+
 class CreateJob extends React.Component {
   constructor(props) {
     super(props);
@@ -83,7 +83,6 @@ class CreateJob extends React.Component {
     var target = event.target;
     var value = target.value;
     var name = target.name;
-    console.log(value);
     this.setState({
       [name]: value,
     });
@@ -195,133 +194,7 @@ class CreateJob extends React.Component {
 
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              <div>
-                <label>Company name:</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={this.state.name}
-                  onChange={this.handleChange.bind(this)}
-                  onKeyUp={e => this.handleEnter(e, this.createNewJob.bind(this))}
-                  required
-                />
-              </div>
-              <div>
-                <label>Job title:</label>
-                <input
-                  type="text"
-                  name="title"
-                  value={this.state.title}
-                  onChange={this.handleChange.bind(this)}
-                  onKeyUp={e => this.handleEnter(e, this.createNewJob.bind(this))}
-                  required
-                />
-              </div>
-              <div>
-                <label>Web site:</label>
-                <input
-                  type="text"
-                  name="website"
-                  value={this.state.website}
-                  onChange={this.handleChange.bind(this)}
-                  onKeyUp={e => this.handleEnter(e, this.createNewJob.bind(this))}
-                />
-              </div>
-              <div>
-                <label>Email:</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={this.state.email}
-                  onChange={this.handleChange.bind(this)}
-                  onKeyUp={e => this.handleEnter(e, this.createNewJob.bind(this))}
-                />
-              </div>
-              <div>
-                <label>Phone:</label>
-                <input
-                  type="phone"
-                  name="phone"
-                  value={this.state.phone}
-                  onChange={this.handleChange.bind(this)}
-                  onKeyUp={e => this.handleEnter(e, this.createNewJob.bind(this))}
-                />
-              </div>
-              <div>
-                <label>Recruiter: </label>
-                <input
-                  type="text"
-                  name="recruiter"
-                  value={this.state.recruiter}
-                  onChange={this.handleChange.bind(this)}
-                  onKeyUp={e => this.handleEnter(e, this.createNewJob.bind(this))}
-                />
-              </div>
-              <div>
-                <label>Post Date:</label>
-                <input
-                  type="date"
-                  name="postDate"
-                  value={this.state.postDate}
-                  onChange={this.handleChange.bind(this)}
-                  onKeyUp={e => this.handleEnter(e, this.createNewJob.bind(this))}
-                />
-              </div>
-              <div>
-                <label>Applied Date: </label>
-                <input
-                  type="date"
-                  name="appliedDate"
-                  value={this.state.appliedDate}
-                  onChange={this.handleChange.bind(this)}
-                  onKeyUp={e => this.handleEnter(e, this.createNewJob.bind(this))}
-                />
-              </div>
-              <div>
-                <label>Interviewed Date:</label>
-                <input
-                  type="date"
-                  name="interviewedDate"
-                  value={this.state.interviewedDate}
-                  onChange={this.handleChange.bind(this)}
-                  onKeyUp={e => this.handleEnter(e, this.createNewJob.bind(this))}
-                />
-              </div>
-              <div>
-                <label>Cover letter url:</label>
-                <input
-                  type="text"
-                  name="coverLetterUrl"
-                  value={this.state.coverLetterUrl}
-                  onChange={this.handleChange.bind(this)}
-                  onKeyUp={e => this.handleEnter(e, this.createNewJob.bind(this))}
-                />
-              </div>
-              <div>
-                <label>Salary:</label>
-                <input
-                  type="text"
-                  name="payRange"
-                  value={this.state.payRange}
-                  onChange={this.handleChange.bind(this)}
-                  onKeyUp={e => this.handleEnter(e, this.createNewJob.bind(this))}
-                />
-              </div>
-              <div>
-                <label>State:</label>
-                <select
-                  name="state"
-                  value={this.state.state}
-                  onChange={this.handleChange.bind(this)}
-                  onKeyUp={e => this.handleEnter(e, this.createNewJob.bind(this))}
-                >
-                  <option value="">Please choose an option</option>
-                  <option value="pending">Pending</option>
-                  <option value="offered">Offered</option>
-                  <option value="rejected">Rejected</option>
-                </select>
-              </div>
-              <CheckboxesGenerator analytics={this.state.analytics} handleCheck={this.handleCheck} />
+              <CreateJobInputFields analytics={this.state.analytics} handleCheck={this.handleCheck} />
             </DialogContentText>
           </DialogContent>
           <DialogActions>
