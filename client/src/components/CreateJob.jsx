@@ -10,11 +10,15 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import axios from 'axios';
+import checkBoxListCreator from './CheckBoxListCreator.jsx';
+import checkBoxes from './checkBoxes.js';
 
 // This is the component for creating a new job. Since we need to host a form in the component, follow
 // the React Design Patterns rules, we are using a stateful component with local states to dynamically
 // take care of the events.
 
+const CheckboxesGenerator = checkBoxListCreator(Checkbox, checkBoxes);
+// const InputFieldGenerator = CheckBoxListCreator();
 class CreateJob extends React.Component {
   constructor(props) {
     super(props);
@@ -86,8 +90,18 @@ class CreateJob extends React.Component {
   }
 
   handleCheck({ target }) {
-    this.state.analytics[target.name] = target.checked;
-    this.setState({ analytics: this.state.analytics });
+    let analyticsCopy = this.state.analytics;
+    if (target.name === 'customizedFull') {
+      Object.keys(analyticsCopy).forEach(key => {
+        analyticsCopy[key] = target.checked;
+      });
+    } else {
+      if (analyticsCopy.customizedFull === true) {
+        analyticsCopy.customizedFull = false;
+      }
+      analyticsCopy[target.name] = target.checked;
+    }
+    this.setState({ analytics: analyticsCopy });
   }
 
   // Event listener for create a new job, and bubble the event back to trigger the
@@ -137,7 +151,6 @@ class CreateJob extends React.Component {
 
   // JSX renders html elements
   render() {
-    console.log(this.state.jobImportURL);
     return (
       <div>
         <Dialog
@@ -308,82 +321,7 @@ class CreateJob extends React.Component {
                   <option value="rejected">Rejected</option>
                 </select>
               </div>
-              <div>
-                <label>Customized Fully: </label>
-                <Checkbox
-                  name="customizedFull"
-                  checked={this.state.analytics.customizedFull}
-                  onChange={this.handleCheck}
-                />
-              </div>
-              <div>
-                <label>Customized Cover Letter: </label>
-                <Checkbox
-                  name="customizedCoverLetter"
-                  checked={this.state.analytics.customizedCoverLetter}
-                  onChange={this.handleCheck}
-                />
-              </div>
-              <div>
-                <label>Customized Sotware Engineering Projects: </label>
-                <Checkbox
-                  name="customizedSotwareEngineeringProjects"
-                  checked={this.state.analytics.customizedSotwareEngineeringProjects}
-                  onChange={this.handleCheck}
-                />
-              </div>
-              <div>
-                <label>Customized Personal Section: </label>
-                <Checkbox
-                  name="customizedPersonal"
-                  checked={this.state.analytics.customizedPersonal}
-                  onChange={this.handleCheck}
-                />
-              </div>
-              <div>
-                <label>Mentioned Non-Technical Experience: </label>
-                <Checkbox
-                  name="mentionedNonTechnicalExperience"
-                  checked={this.state.analytics.mentionedNonTechnicalExperience}
-                  onChange={this.handleCheck}
-                />
-              </div>
-              <div>
-                <label>Included Codebase Links: </label>
-                <Checkbox name="codeLinks" checked={this.state.analytics.codeLinks} onChange={this.handleCheck} />
-              </div>
-              <div>
-                <label>Included Deployed Links: </label>
-                <Checkbox
-                  name="deployedLinks"
-                  checked={this.state.analytics.deployedLinks}
-                  onChange={this.handleCheck}
-                />
-              </div>
-              <div>
-                <label>Had A Referral: </label>
-                <Checkbox name="referral" checked={this.state.analytics.referral} onChange={this.handleCheck} />
-              </div>
-              <div>
-                <label>Used A Recruiter: </label>
-                <Checkbox
-                  name="usedARecruiter"
-                  checked={this.state.analytics.usedARecruiter}
-                  onChange={this.handleCheck}
-                />
-              </div>
-              <div>
-                <label>Networked: </label>
-                <Checkbox name="networked" checked={this.state.analytics.networked} onChange={this.handleCheck} />
-              </div>
-              <div>
-                <label>Have A In Company Connection: </label>
-                <Checkbox
-                  name="inCompanyConnection"
-                  checked={this.state.analytics.inCompanyConnection}
-                  onChange={this.handleCheck}
-                />
-              </div>
+              <CheckboxesGenerator analytics={this.state.analytics} handleCheck={this.handleCheck} />
             </DialogContentText>
           </DialogContent>
           <DialogActions>

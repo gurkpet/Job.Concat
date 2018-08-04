@@ -46,7 +46,6 @@ class App extends Component {
       .get(endpoint, params)
       .then(response => {
         // update respective data
-        console.log(response);
         callback(response);
       })
       .catch(err => console.log(err));

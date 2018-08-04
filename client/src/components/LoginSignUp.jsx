@@ -147,9 +147,9 @@ class LoginSignUp extends React.Component {
 
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                <div style={!this.state.nonExistentUser ? { display: 'none ' } : { color: 'red', fontSize: '0.8em' }}>
-                  <React.Fragment>{MessageToUser}</React.Fragment>
-                </div>
+                <a style={!this.state.nonExistentUser ? { display: 'none ' } : { color: 'red', fontSize: '0.8em' }}>
+                  {MessageToUser}
+                </a>
                 <React.Fragment>
                   Email:
                   <input
